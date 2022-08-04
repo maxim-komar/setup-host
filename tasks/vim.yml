@@ -1,0 +1,13 @@
+- name: Install vim
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - "vim_{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
+    - "vim_{{ ansible_distribution }}.yml"
+
+- name: Create .vimrc for root
+  ansible.builtin.copy:
+    src: root/.vimrc
+    dest: /root/.vimrc
+    owner: root
+    group: root
+    mode: '0644'

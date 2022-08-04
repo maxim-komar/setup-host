@@ -1,0 +1,9 @@
+ansible_user: root
+sudo_group: sudo
+current_user:
+    name: "{{ lookup('env', 'USER') }}"
+    group: "{{ lookup('env', 'USER') }}"
+    home: "/home/{{ lookup('env', 'USER') }}/"
+    shell: "/usr/bin/bash"
+control_node:
+    public_keys_dir: "{{ lookup('env', 'HOME') }}/.ssh/"

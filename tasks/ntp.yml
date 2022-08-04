@@ -1,0 +1,5 @@
+- name: Setup ntp tools
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - "ntp_{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
+    - "ntp_{{ ansible_distribution }}.yml"

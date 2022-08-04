@@ -1,0 +1,14 @@
+- name: Update packages and distro
+  ansible.builtin.import_tasks: update.yml
+
+- name: Install ntp tools
+  ansible.builtin.import_tasks: ntp.yml
+
+- name: Setup sudo
+  ansible.builtin.import_tasks: sudo.yml
+
+- name: Install vim
+  ansible.builtin.import_tasks: vim.yml
+
+- name: "Create environment for {{ current_user.name }}"
+  ansible.builtin.import_tasks: current_user.yml

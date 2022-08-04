@@ -1,0 +1,10 @@
+- name: Install chrony
+  ansible.builtin.yum:
+    name: chrony
+    state: latest
+
+- name: Make ensure chrony is running and enabled
+  ansible.builtin.systemd:
+    name: chronyd
+    state: started
+    enabled: yes

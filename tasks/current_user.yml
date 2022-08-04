@@ -1,0 +1,25 @@
+- name: "Create group {{ current_user.group }}"
+  ansible.builtin.group:
+    name: "{{ current_user.name }}"
+
+- name: "Create user {{ current_user.name }}"
+  ansible.builtin.user:
+    name: "{{ current_user.name }}"
+    home: "{{ current_user.home }}"
+    group: "{{ current_user.group }}"
+    groups: "{{ sudo_group }}"
+    shell: "{{ current_user.shell }}"
+
+- name: "Create authorized keys for {{ current_user.name }}"
+  ansible.posix.authorized_key:
+    user: "{{ current_user.name }}"
+    key: "{{ lookup('file', '{{ item }}') }}"
+  with_fileglob: "{{ control_node.public_keys_dir}}/*.pub"
+
+- name: "Create .vimrc for {{ current_user.name }}"
+  ansible.builtin.copy:
+    src: home/current_user/.vimrc
+    dest: "{{ current_user.home }}/.vimrc"
+    owner: "{{ current_user.name }}"
+    group: "{{ current_user.group }}"
+    mode: '0644'

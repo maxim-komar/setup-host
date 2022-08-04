@@ -1,0 +1,4 @@
+- name: Install vim
+  ansible.builtin.apt:
+    name: vim
+    state: latest

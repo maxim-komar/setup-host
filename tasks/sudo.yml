@@ -1,0 +1,20 @@
+- name: "Make ensure sudo group '{{ sudo_group }}' exists"
+  ansible.builtin.group:
+    name: "{{ sudo_group }}"
+
+- name: Create /etc/sudoers
+  ansible.builtin.template:
+    dest: /etc/sudoers
+    src: etc/sudoers.j2
+
+- name: Create /etc/sudoers.d/
+  ansible.builtin.file:
+    path: /etc/sudoers.d
+    state: directory
+    mode: '0750'
+
+- name: Create /etc/sudoers.d/sudo
+  ansible.builtin.template:
+    dest: /etc/sudoers.d/sudo
+    src: etc/sudoers.d/sudo.j2
+    mode: '0440'
